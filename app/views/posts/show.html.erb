@@ -1,0 +1,52 @@
+<div class="card my-5">
+  <div class="card-body">
+    <p id="notice"><%= notice %></p>
+
+    <h1 class="text-center"><%= @post.title %></h1>
+    <hr >
+    <div class="my-4">
+      <%= simple_format(@post.body) %>
+    </div>
+
+    <%= link_to "Back", posts_path, class: "btn btn-light" %>
+
+  <% if user_signed_in? %>
+    <h2>Comments</h2>
+      <%= render @post.comments.includes(:user) %>
+    <%= form_with(model: Comment.new, url: comments_path) do |form| %>
+      <%= form.hidden_field :post_id, value: @post.id %>
+      <div>
+        <%= form.label :body %>
+        <%= form.text_area :body %>
+      </div>
+      <div>
+        <%= form.submit "Add comment" %>
+      </div>
+    <% end %>
+    <% else %>
+      <p>You must be logged in to comment. <%= link_to 'Log in', new_user_session_path %></p>
+  <% end %> 
+  </div>
+</div>
+
+<% @post.comments.each do |comment| %>
+  <div>
+    <p><strong>Comment:</strong> <%= comment.body %></p>
+    <%= link_to "Reply", '#', onclick: "showReplyForm(#{comment.id})" %>
+
+    <div id="reply-form-<%= comment.id %>" style="display:none;">
+      <%= render 'comments/reply_form', comment: comment %> 
+    </div>
+
+    <% comment.replies.each do |reply| %>
+      <%= render 'comments/reply', reply: reply %>
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+  function showReplyForm(commentId) {
+    const form = document.getElementById('reply-form-' + commentId);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+</script>

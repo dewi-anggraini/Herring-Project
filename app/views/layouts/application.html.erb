@@ -1,0 +1,39 @@
+<p class="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HerringProject</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+
+  <ul>
+    <li><%= link_to 'Home', root_path %></li>
+    <% if user_signed_in? %>
+      <li>Hello, <%= current_user.email %></li>
+      <%= button_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure you want to log out?' } %>
+    <% else %>
+      <li><%= link_to 'Login', new_user_session_path %></li>
+      <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+      <%= button_to "Delete Account", delete_account_user_path, method: :delete, data: { confirm: "Are you sure you want to delete your account? This action cannot be undone." } %>
+    <% end %>
+  </ul>
+    <%= yield %>
+
+    <footer>
+      <p>&copy; <%= Date.current.year %> Plantasia. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
