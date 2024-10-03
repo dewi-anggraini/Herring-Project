@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
+  get 'pages/about'
   resources :posts
-  resources :comments, only: [:create, :index, :show, :edit, :update, :destroy]    
+  resources :comments, only: [:create, :index, :show, :edit, :update, :destroy]   
    
   devise_for :users, :controllers => { registrations: "users/registrations", 
   sessions: "users/sessions" }
-
   delete "users/delete_account", to: "users/registrations#delete_account", as: :delete_account_user
-  
 
+  resources :users, only: [:destroy]
+  
+  resources :events
+  get '/update_year', to: 'events#update_year'
+ 
   root "home#index"
+  get "events", to: "events#calendar"
+  get "about", to: "pages#about"
+  get "contact", to: "pages#contact"
+  post "contact", to: "pages#contact"
   #get 'home/index'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

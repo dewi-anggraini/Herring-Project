@@ -2,6 +2,7 @@
 <div class="card my-5">
   <div class="card-body">
     <h1>Edit Post</h1>
+    <%= link_to 'Back to Posts', posts_path, class: 'btn btn-secondary' %>
 
     <%= render 'form', post: @post %>
 

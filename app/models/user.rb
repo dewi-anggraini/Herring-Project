@@ -9,4 +9,10 @@ class User < ApplicationRecord
 
   has_many :posts
   has_many :comments
+
+  def delete_account
+    # Anonymize posts
+    posts.update_all(user_id: nil, user_name: 'Anonymous') # assuming you have a username field
+    destroy
+  end
 end

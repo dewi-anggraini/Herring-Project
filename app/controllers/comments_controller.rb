@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
-  
+  before_action :authenticate_user! 
   before_action :set_comment, only: %i[ show edit update destroy ]
 
   # GET /comments or /comments.json
@@ -14,8 +13,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.new(parent_id: params[:parent_id])
+    @comment = Comment.new
   end
 
   # GET /comments/1/edit
@@ -47,7 +45,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
+        format.html { redirect_to comments_path, notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,11 +56,17 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
-    @comment.destroy!
+    @comment = Comment.find(params[:id])
 
     respond_to do |format|
-      format.html { redirect_to comments_path, status: :see_other, notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
+      if @comment.user == current_user
+        @comment.destroy!
+        format.html { redirect_to comments_path, status: :see_other, notice: "Comment was successfully destroyed." }
+        format.json { head :no_content }
+      else 
+        format.html { redirect_to @comment, alert: 'You are not authorized to delete this post.' }
+        format.json { render json: { error: 'Unauthorized' }, status: :forbidden }
+      end
     end
   end
 
@@ -70,11 +74,12 @@ class CommentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+       redirect_to comments_path, alert: 'Comment not found.'
     end
 
     # Only allow a list of trusted parameters through.
     def comment_params
       params.require(:comment).permit(:body, :post_id, :user_id, :parent_id)
     end
-
 end
