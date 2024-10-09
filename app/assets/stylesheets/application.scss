@@ -15,6 +15,9 @@
  *= require_tree .
  *= require_self
  */
+ .table td {
+  text-align: center;
+ }
  .crop-diagram {
     display: flex;
     flex-direction: column;

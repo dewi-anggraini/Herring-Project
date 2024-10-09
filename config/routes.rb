@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   get 'pages/about'
-  resources :posts
-  resources :comments, only: [:create, :index, :show, :edit, :update, :destroy]   
-   
+  resources :posts, only: [:index, :new, :create, :edit, :update, :destroy, :show] 
+  resources :comments, only: [:index, :new, :create, :edit, :update, :destroy, :show] 
+  
   devise_for :users, :controllers => { registrations: "users/registrations", 
   sessions: "users/sessions" }
   delete "users/delete_account", to: "users/registrations#delete_account", as: :delete_account_user
-
+  #devise_scope :user do   
+  #end
+  
   resources :users, only: [:destroy]
   
   resources :events
