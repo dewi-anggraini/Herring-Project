@@ -1,30 +1,57 @@
-<h1>Home</h1>
 <div class="container mt-5">
-  <h1>Welcome To Plantasia</h1>
+  <h2>Welcome To Plantasia</h2>
   <p>Manage your plants and harvests more accurately with crop calendar, and connect with a vibrant supportive community.</p>
   <p>Lets get going!</p>
- 
-  
-  <h2>About</h2>
-  <p>The purpose of this application is to allow farmers to access information about planting seasons, and also a forum to share other information, so farmers no longer need to gather this information separately from search engines. With accurate information regarding planting times farmers can manage their crops and harvests to meet the market needs and reduce the planting process prices. 
-  For farmers, knowing when to plant is crucial since it has a big impact on the harvest that is generated. A good and timely harvest will impact and meet market needs and reduce production costs. 
-  This application is designed to provide access and information to users and farmers about the annual planting season, allowing farmers to manage their crops and harvests. This application also serves as a platform for users and farmers to share ideas and information about plants, agriculture, or other topics of interest to the users.
-  Have fun and enjoy this application.
-  </p>
 
-  <h2>Contact</h2>
-  <p>Contact us at example@example.com</p>
+  <h2>Crop Calendar for <%= Time.current.year %></h2>
+  <div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover table-sm">
+    <thead>
+      <tr>
+        <th>crop</th>
+        <% Date::MONTHNAMES.drop(1).each do |month| %>
+          <th><%= month %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @crops.each do |crop| %>
+        <tr>
+          <td><%= crop.name %></td>
+          <% (1..12).each do |month| %>
+            <td>
+            
+              <% if crop.planting_months.include?(month.to_s) %>
+               <span class="planting">Plant</span>
+              <% elsif crop.harvest_months.include?(month.to_s) %>
+               <span class="harvest">Harvest</span>
+              <% elsif crop.mid_season_months.include?(month.to_s) %>
+               <span class="mid-season">Mid</span>
+              <% end %>
+              
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  <p><a href="/events">Crop Calendar</a></p>
 
-  <h2>Features</h2>
-  <% if current_user %>
-    <li><%= link_to "Sign out", destroy_user_session_path, method: :delete  %></li>
-  <% else %>
-    <li><%= link_to "Sign up", new_user_registration_path %></li>
-  <% end %>
   <h3>Forum</h3>
   <p>Discuss Topics and Share Ideas</p>
-  <h3>Crop Calendar</h3>
-  <p>National Crop Calendar</p>
+  <p> You need to Sign_up or Log_in to be able to access The Forum</p>
+  <%= link_to 'View Posts', posts_path %>
+  <% if current_user %>
+    <li><%= link_to "Sign out", destroy_user_session_path, method: :delete  %></li>
+    <%= form_for(:delete_account, url: delete_account_user_path, method: :delete) do |form| %>
+      <%= form.submit 'Delete Account', data: { confirm: 'Are you sure you want to delete your account? This activity cannot be undone' } %>
+    <% end %>
+    
+  <% else %>
+    <li><%= link_to "Sign up", new_user_registration_path %></li>
+    <li><%= link_to 'Login', new_user_session_path %></li>
+  <% end %>
 
   <h2>Recent Posts</h2>
   <ul>
@@ -32,5 +59,11 @@
       <li><%= link_to post.title, post_path(post) %></li>
     <% end %>
   </ul>
+
+  <h2>About</h2>
+  <%= link_to 'About', about_path %>
+
+  <h2>Contact</h2>
+  <%= link_to "Contact", contact_path %>
+
 </div>
-<p>Find me in app/views/home/index.html.erb</p>
