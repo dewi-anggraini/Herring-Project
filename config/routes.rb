@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   #devise_scope :user do   
   #end
   
-  resources :users, only: [:destroy]
+  #resources :users, only: [:destroy]
   
   resources :events
   get '/update_year', to: 'events#update_year'

@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   end
 
   def contact
-    if request.post? # Check if it's a POST request
+    if request.post? 
       name = params[:name]
       email = params[:email]
       message = params[:message]

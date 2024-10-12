@@ -1,5 +1,4 @@
 <script>
-  // Assuming this runs after the comment is successfully created
   document.querySelector("@comments.parent_id").innerHTML += ("<%= j render @comment %>");
 </script>
 document.querySelector("#reply-form-<%= @comment.parent_id %>").innerHTML = ("<%= j render @comment %>")
