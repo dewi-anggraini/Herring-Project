@@ -1,1 +1,6 @@
-document.querySelector("#reply-form-<%= @comment.parent_id %>").innerHTML = ("<%= j render 'reply_form', comment: @comment %>")
+<script>
+  document.querySelector("@comments.parent_id").innerHTML += ("<%= j render @comment %>");
+</script>
+document.querySelector("#reply-form-<%= @comment.parent_id %>").innerHTML = ("<%= j render @comment %>")
+
+
