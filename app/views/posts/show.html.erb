@@ -1,44 +1,43 @@
-<div class="card my-5">
-  <div class="card-body">
-    <p id="notice"><%= notice %></p>
-
-    <h1 class="text-center"><%= @post.title %></h1>
-    <hr >
-    <div class="my-4">
-      <p><%= @post.body %></p>
-      <p>Posted by: <%= @post.user.email %></p>
-      <p>Date: <%= @post.created_at.strftime("%B %d, %Y") %></p>
-    </div>
+<div class="container mt-4">
+  <h1><%= @post.title %></h1>
+  <p class="text-muted">
+    Posted by <%= @post.user.email %> on <%= @post.created_at.strftime("%B %d, %Y") %>
+  </p>
+  <p><%= @post.body %></p>
   
       <h2>Comments</h2>
   
       <% @comments.each do |comment| %>
-        <div>
-          <p><%= comment.body %> - Posted by <%= comment.user.email %></p>
-          <div class="button group">   
-            <%= link_to 'Edit Comment', edit_comment_path(comment) %> |
-            <%= link_to 'Reply', new_comment_path(post_id: @post.id, parent_id: comment.id) %> |
-            <%= button_to 'Delete Comment', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %>                
-          </div>
-          <% comment.replies.each do |reply| %>
-            <div style="margin-left: 20px;">
-              <p><%= reply.body %> - Posted by <%= reply.user.email %></p>
-              <p>
-                <%= link_to 'Edit Reply', edit_comment_path(reply) %> |
-                <%= button_to 'Delete Reply', comment_path(reply), method: :delete, data: { confirm: 'Are you sure?' } %>             
-              </p>
+       <div class="card mb-3">
+          <div class="card-body">
+          <p><%= comment.body %> - <small class="text-muted">Posted by <%= comment.user.email %></small></p>
+            <div class="button-group">
+              <%= link_to 'Edit Comment', edit_comment_path(comment), class: "btn btn-warning btn-sm" %> |
+              <%= link_to 'Reply', new_comment_path(post_id: @post.id, parent_id: comment.id), class: "btn btn-info btn-sm" %> |
+              <%= button_to 'Delete Comment', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
             </div>
-          <% end %>
-        </div>
-      <% end %>   
-      <div>
-  
-    <div>
+          </div>
+          <div class="card-footer">
+            <% comment.replies.each do |reply| %>
+              <div class="border p-2 mb-2" style="margin-left: 20px; background-color: #f8f9fa;">
+                <p><%= reply.body %> - <small class="text-muted">Posted by <%= reply.user.email %></small></p>
+                <div class="button-group">
+                  <%= link_to 'Edit Reply', edit_comment_path(reply), class: "btn btn-warning btn-sm" %> |
+                  <%= button_to 'Delete Reply', comment_path(reply), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+       </div>
+      <% end %>
+    <div class="d-flex flex-wrap mb-3">
+     <div>
       <%= link_to 'Add Comment', new_comment_path(post_id: @post.id), class: 'btn btn-primary' %>
       <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
       <%= link_to 'Update Post', edit_post_path(@post), class: 'btn btn-primary' %>
-      <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this post?' }, class: "btn btn-danger" %>
       <%= link_to 'Back to Posts', posts_path, class: 'btn btn-primary' %>
+      <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this post?' }, class: "btn btn-danger" %>
+     </div>
     </div>
-  </div>
 </div>
+  

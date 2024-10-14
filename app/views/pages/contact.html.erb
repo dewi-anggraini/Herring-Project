@@ -1,19 +1,22 @@
-<h1>Contact Us</h1>
-<p>If you have any questions, feel free to reach out!</p>
-<p>Contact us at <a href="mailto:example@example.com">example@example.com</a></p>
-
-<%= form_with url: contact_path, local: true do |form| %>
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+       <h1>Contact Us</h1>
+      <%= form_with url: contact_path, local: true do |form| %>
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea class="form-control" id="message" placeholder="Enter your message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+      <% end %>
     </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div>
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" required></textarea>
-    </div>
-    <button type="submit">Send</button>
-<% end %>
+  </div>
+</div>

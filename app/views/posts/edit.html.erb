@@ -1,6 +1,6 @@
-<div class="card my-5">
-  <div class="card-body">
-    <h1>Edit Post</h1>
+<div class="card edit-post-card my-5">
+  <div class="card-body-edit">
+    <h1 class="edit-post-title text-center">Edit Post</h1>
 
     <%= form_with(model: @post, local: true) do |form| %>
       <% if @post.errors.any? %>
@@ -14,22 +14,22 @@
         </div>
       <% end %>
     
-      <div>
-        <%= form.label :title %>
-        <%= form.text_field :title %>
+      <div class="mb-3">
+        <%= form.label :title, class: "form-label" %>
+        <%= form.text_field :title, class: "form-control" %>
       </div>
     
-      <div>
-        <%= form.label :body %>
-        <%= form.text_area :body %>
+      <div class="mb-3">
+        <%= form.label :body, class: "form-label" %>
+        <%= form.text_area :body, class: "form-control" %>
       </div>
     
-      <div>
+      <div class="text-center">
         <%= form.submit 'Update Post' %>
       </div>
     <% end %>
     
-    <%= link_to 'Back to Posts', posts_path, class: 'btn btn-secondary' %>
+    <%= link_to 'Back to Posts', posts_path, class: 'btn btn-primary' %>
 
   </div>
 </div>

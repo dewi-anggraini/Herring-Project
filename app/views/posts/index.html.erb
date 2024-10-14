@@ -1,18 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>All Posts</h1>
-
-<% @posts.each do |post| %>
-  <div>
-    <h2><%= post.title %></h2>
-    <p>Posted by: <%= post.user.email %></p>
-    <p>Date: <%= post.created_at.strftime("%B %d, %Y") %></p>
-    <%= link_to 'Show Post', post_path(post) %>
+<div class="container mt-4">
+  <h1 class="text-center">All Posts</h1>
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-4 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 calss="card-title"><%= post.title %></h5>
+            <p class="card-text"><small class="text-muted">Posted by: <%= post.user.email %></small></p>
+            <p>Date: <%= post.created_at.strftime("%B %d, %Y") %></p>
+            <a href="<%= post_path(post) %>" class="btn btn-primary">Show This Post</a>
+            <a href="<%= new_post_path %>" class="btn btn-primary">New Post</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
-
-<%= link_to 'New Post', new_post_path %>
-<%= link_to 'Back to Home', root_path %>
+</div>
 
 
 
