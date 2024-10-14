@@ -1,5 +1,6 @@
 
 @import "bootstrap";
+@import "font-awesome";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -15,3 +16,227 @@
  *= require_tree .
  *= require_self
  */
+ body {
+  background-color: #e9e0e0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+ }
+ p {
+  text-align: justify;
+ }
+ .table td {
+  text-align: center;
+ }
+
+  .month-line, .activity-line {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .month {
+    margin: 0 10px;
+    font-size: 18px;
+  }
+  
+  .activity-line span {
+    margin: 0 10px;
+    font-size: 18px;
+  }
+  
+  .planting {
+    color: green;
+  }
+  
+  .harvest {
+    color: orange;
+  }
+  
+  .mid-season {
+    color: brown;
+  }
+  
+  .no-activity {
+    color: #ccc;
+  }
+
+  .logo-small {
+    width: 100px;
+    height: auto; 
+  }
+  .icon-space {
+    margin-right: 8px;
+  }
+  //navbar
+  .nav-link.active {
+    color: blueviolet;
+  }
+  .navbar {
+    margin-bottom: 20px; 
+  }
+  .nav-item {
+    display: inline; 
+    margin-right: 20px; 
+}
+  .alert {
+    margin-top: 10px; 
+  }
+  .logo-custom {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  footer {
+    background-color: #f1f1f1; 
+    border-top: 1px solid #dee2e6; 
+    position: relative; 
+    bottom: 0;
+    width: 100%; 
+  }
+  
+  footer p {
+    margin: 0; 
+    font-size: 18px;
+    font-weight: bold;
+    color: #6c757d;
+    text-align: center; 
+  }
+
+  //About Page
+  .about-page {
+    background-color: #f7f7f7;
+    padding: 20px;
+  }
+  .about-page h1 {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+  }
+  .about-page p {
+    font-size: 18px;
+    color: black;
+    text-align: justify;
+  }
+
+  //all posts page
+  .card {
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold; 
+  }
+  
+  .card-text {
+    font-size: 0.9rem; 
+  }
+  
+  .text-muted {
+    font-size: 0.8rem; 
+  }
+  
+  .btn-primary {
+    margin-top: 10px; 
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 576px) {
+    .card {
+      margin-bottom: 20px;
+    }
+  }
+
+  //the post and comments page
+  .button-group .btn {
+    display: inline-block;
+  }
+  .card {
+    border: 1px solid #dee2e6; 
+  }
+  
+  .card-footer {
+    background-color: #f8f9fa; 
+  }
+  
+  .border {
+    border-left: 3px solid #007bff; 
+    padding-left: 15px; 
+    margin-left: 20px; 
+    background-color: #f8f9fa; 
+  }
+  
+  .button-group {
+    margin-top: 10px; 
+  }
+  
+  .text-muted {
+    font-size: 0.9rem;
+  }
+
+  //new post-page
+  .new-post {
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem; 
+  }
+  
+  .new-post .card-body {
+    padding: 2rem; 
+  }
+  
+  .new-post-title {
+    margin-bottom: 1.5rem; 
+    color: #343a40; 
+  }
+  
+  .form-label {
+    font-weight: bold; 
+  }
+  //contact us page
+  .contacts-form {
+    margin-top: 20px;
+  }
+  
+  .contacts-form label {
+    font-weight: bold;
+  }
+  //edit post page
+  .edit-post-card {
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem; 
+  }
+  
+  .edit-post-card .card-body-edit {
+    padding: 2rem; 
+  }
+  
+  .edit-post-title {
+    margin-bottom: 1.5rem; 
+    color: #343a40; 
+  }
+  
+  .form-label {
+    font-weight: bold; 
+  }
+  //edit comment
+  .edit-comment-card {
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem; 
+  }
+  
+  .edit-comment-card .card-body-comment {
+    padding: 2rem; 
+  }
+  
+  .edit-comment-title {
+    margin-bottom: 1.5rem; 
+    color: #343a40; 
+  }
+  
+  .form-label {
+    font-weight: bold; 
+  }
+
+  

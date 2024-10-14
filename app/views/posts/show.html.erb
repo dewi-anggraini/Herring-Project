@@ -1,52 +1,43 @@
-<div class="card my-5">
-  <div class="card-body">
-    <p id="notice"><%= notice %></p>
-
-    <h1 class="text-center"><%= @post.title %></h1>
-    <hr >
-    <div class="my-4">
-      <%= simple_format(@post.body) %>
+<div class="container mt-4">
+  <h1><%= @post.title %></h1>
+  <p class="text-muted">
+    Posted by <%= @post.user.email %> on <%= @post.created_at.strftime("%B %d, %Y") %>
+  </p>
+  <p><%= @post.body %></p>
+  
+      <h2>Comments</h2>
+  
+      <% @comments.each do |comment| %>
+       <div class="card mb-3">
+          <div class="card-body">
+          <p><%= comment.body %> - <small class="text-muted">Posted by <%= comment.user.email %></small></p>
+            <div class="button-group">
+              <%= link_to 'Edit Comment', edit_comment_path(comment), class: "btn btn-warning btn-sm" %> |
+              <%= link_to 'Reply', new_comment_path(post_id: @post.id, parent_id: comment.id), class: "btn btn-info btn-sm" %> |
+              <%= button_to 'Delete Comment', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <% comment.replies.each do |reply| %>
+              <div class="border p-2 mb-2" style="margin-left: 20px; background-color: #f8f9fa;">
+                <p><%= reply.body %> - <small class="text-muted">Posted by <%= reply.user.email %></small></p>
+                <div class="button-group">
+                  <%= link_to 'Edit Reply', edit_comment_path(reply), class: "btn btn-warning btn-sm" %> |
+                  <%= button_to 'Delete Reply', comment_path(reply), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+       </div>
+      <% end %>
+    <div class="d-flex flex-wrap mb-3">
+     <div>
+      <%= link_to 'Add Comment', new_comment_path(post_id: @post.id), class: 'btn btn-primary' %>
+      <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+      <%= link_to 'Update Post', edit_post_path(@post), class: 'btn btn-primary' %>
+      <%= link_to 'Back to Posts', posts_path, class: 'btn btn-primary' %>
+      <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this post?' }, class: "btn btn-danger" %>
+     </div>
     </div>
-
-    <%= link_to "Back", posts_path, class: "btn btn-light" %>
-
-  <% if user_signed_in? %>
-    <h2>Comments</h2>
-      <%= render @post.comments.includes(:user) %>
-    <%= form_with(model: Comment.new, url: comments_path) do |form| %>
-      <%= form.hidden_field :post_id, value: @post.id %>
-      <div>
-        <%= form.label :body %>
-        <%= form.text_area :body %>
-      </div>
-      <div>
-        <%= form.submit "Add comment" %>
-      </div>
-    <% end %>
-    <% else %>
-      <p>You must be logged in to comment. <%= link_to 'Log in', new_user_session_path %></p>
-  <% end %> 
-  </div>
 </div>
-
-<% @post.comments.each do |comment| %>
-  <div>
-    <p><strong>Comment:</strong> <%= comment.body %></p>
-    <%= link_to "Reply", '#', onclick: "showReplyForm(#{comment.id})" %>
-
-    <div id="reply-form-<%= comment.id %>" style="display:none;">
-      <%= render 'comments/reply_form', comment: comment %> 
-    </div>
-
-    <% comment.replies.each do |reply| %>
-      <%= render 'comments/reply', reply: reply %>
-    <% end %>
-  </div>
-<% end %>
-
-<script>
-  function showReplyForm(commentId) {
-    const form = document.getElementById('reply-form-' + commentId);
-    form.style.display = form.style.display === 'none' ? 'block' : 'none';
-  }
-</script>
+  
