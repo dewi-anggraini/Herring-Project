@@ -1,16 +1,27 @@
-<p style="color: green"><%= notice %></p>
 
-<h1>Posts</h1>
+<div class="container mt-4">
+  <h1 class="text-center">All Posts</h1>
 
-<%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
-<hr>
-<% @posts.each do |post| %>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5> # changed title to a link to show the post
-      <p class="card-text"><%= truncate(post.body, length: 60) %></p>
-      <%= link_to 'Edit', edit_post_path(post), class: 'card-link' %>
-    </div>
+  <div class="d-flex justify-content-center">
+    <a href="<%= new_post_path %>" class="btn btn-primary mt-5 mb-5">New Post</a>
   </div>
-<% end %>
+  
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-4 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 calss="card-title"><%= post.title %></h5>
+            <p class="card-text"><small class="text-muted">Posted by: <%= post.user.email %></small></p>
+            <p>Date: <%= post.created_at.strftime("%B %d, %Y") %></p>
+            <a href="<%= post_path(post) %>" class="btn btn-primary">Show This Post</a>
+            <a href="<%= new_post_path %>" class="btn btn-primary">New Post</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
 

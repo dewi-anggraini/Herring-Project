@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :authenticate_user!
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -28,18 +29,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def destroy
   #   super
   # end
-
   def delete_account
-    # Anonymize posts
-    current_user.posts.update_all(user_id: nil, user_name: "Deleted User", content: "[Deleted]")
-    
-    # Anonymize comments
-    current_user.comments.update_all(user_id: nil, user_name: "Deleted User", content: "[Deleted]")
-    
-    # Destroy the user account
-    current_user.destroy
-
-    redirect_to root_path, notice: 'Your account has been successfully deleted, and your content has been anonymized.'
+    @user = User.find(current_user.id)
+    #@user.anonymize_data  # to Anonymize user data?
+    #@user.destroy
+    #super 
+    current_user.delete_account
+    redirect_to root_path, notice: 'Your account has been deleted.'
   end
 
   # GET /resource/cancel

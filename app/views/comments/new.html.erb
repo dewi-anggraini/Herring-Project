@@ -1,9 +1,30 @@
-<h1>New comment</h1>
+<h1>New Comment</h1>
+<%= form_with(model: @comment, url: comments_path, method: :post ) do |form| %>
+  <% if @comment.errors.any? %>
+    <div class="error-messages">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <ul>
+        <% @comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= render "form", comment: @comment %>
+  <div class="form-group">
+    <%= form.label :body, "Comment" %>
+    <%= form.text_area :body, class: 'form-control' %>
+  </div>
+  
+  <%= form.hidden_field :post_id, value: @post.id %>
+  
+  <% if @parent_comment %>
+    <%= form.hidden_field :parent_id, value: @parent_comment.id %>
+  <% end %>
 
-<br>
-
-<div>
-  <%= link_to "Back to comments", comments_path %>
-</div>
+  <div>
+    <%= form.submit "Submit Comment" %>
+  </div>
+<% end %>
+    
+<%= link_to 'Back to Post', @post %>

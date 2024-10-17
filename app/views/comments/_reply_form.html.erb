@@ -1,16 +1,1 @@
-<div class="card ml-5">
-  <div class="card-body">
-    <%= form_with(model: Comment.new, url: comments_path) do |form| %>
-      <%= form.hidden_field :post_id, value: @post.id %>
-      <%= form.hidden_field :parent_id, value: comment.id %>
-      <div class="form-group">
-        <%= form.label :Reply %>
-        <%= form.text_area :body, class: 'form-control' %>
-      </div>
-      <div>
-        <%= form.submit "Add Reply", class: "btn btn-primary" %>
-        <%= link_to 'Cancel', post_path(@post), class: 'btn btn-secondary' %>
-      </div>
-    <% end %>
-  </div>
-</div>
+
