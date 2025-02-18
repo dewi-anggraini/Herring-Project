@@ -30,10 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
   def delete_account
-    @user = User.find(current_user.id)
-    #@user.anonymize_data  # to Anonymize user data?
-    #@user.destroy
-    #super 
+    @user = User.find(current_user.id) 
     current_user.delete_account
     redirect_to root_path, notice: 'Your account has been deleted.'
   end

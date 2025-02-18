@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show 
-    @post = Post.find(params[:id])
+    #@post = Post.find(params[:id])
     @comments = Comment.where(post_id: @post.id).includes(:user) 
   end
 

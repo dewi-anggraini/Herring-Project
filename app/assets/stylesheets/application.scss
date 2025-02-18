@@ -22,6 +22,7 @@
  }
  p {
   text-align: justify;
+  font-size: 18px;
  }
  .table td {
   text-align: center;
@@ -59,16 +60,13 @@
   }
 
   .logo-small {
-    width: 100px;
+    width: 120px;
     height: auto; 
   }
   .icon-space {
     margin-right: 8px;
   }
   //navbar
-  .nav-link.active {
-    color: blueviolet;
-  }
   .navbar {
     margin-bottom: 20px; 
   }
